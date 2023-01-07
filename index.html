@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- CSS -->
+   <link rel="stylesheet" href="./assets/css/style.css">
+   <!-- Fontawesome -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <!-- Fonts -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;500;600;700&display=swap" rel="stylesheet">
+   <title>Form Validation</title>
+</head>
+
+<body>
+   <div class="main">
+      <!-- card -->
+      <div class="card">
+         <!-- card thumbnail -->
+         <div class="card__thumbnail">
+            <!-- icon -->
+            <div class="card__thumbnail__icon">
+               <i class="fa-solid fa-user-astronaut"></i>
+            </div>
+            <!-- slogan -->
+            <span class="card__thumbnail__title">
+               Plan your activities and control your process online
+            </span>
+            <!-- img -->
+            <div class="card__thumbnail__img">
+               <img id="img__rocket" src="./assets/img/rocket.png" alt="">
+               <img id="img__smoke" src="./assets/img/smoke.png" alt="">
+            </div>
+         </div>
+         <!-- card-form -->
+         <form class="card__form" id="register-form">
+            <!-- icon -->
+            <div class="card__form__icon">
+               <span>Sign Up</span>
+            </div>
+            <!-- title -->
+            <h2 class="card__form__title">Sign Up</h2>
+            <!-- form -->
+            <div class="card__form__body">
+               <!-- name -->
+               <div class="form__group">
+                  <label class="form__label" for="name">FULL NAME</label>
+                  <input class="form__input" id="name" name="fullname" type="text" placeholder="Enter your full name">
+                  <span class="form__message"></span>
+               </div>
+               <!-- email -->
+               <div class="form__group">
+                  <label class="form__label" for="email">EMAIL</label>
+                  <input class="form__input" id="email" name="email" type="email" rules="required|email"
+                     placeholder="Your email goes here">
+                  <span class="form__message"></span>
+               </div>
+               <!-- password -->
+               <div class="form__group">
+                  <label class="form__label" for="password">PASSWORD</label>
+                  <input class="form__input" id="password" name="password" type="password" rules="required|min:6"
+                     placeholder="Your new password">
+                  <span class="form__message"></span>
+               </div>
+               <!-- confirm password -->
+               <div class="form__group">
+                  <label class="form__label" for="confirm-password">CONFIRM PASSWORD</label>
+                  <input class="form__input" id="confirm-password" name="confirm-password" type="password"
+                     placeholder="Confirm your password">
+                  <span class="form__message"></span>
+               </div>
+               <!-- avatar -->
+               <div class="form__group">
+                  <label class="form__label" for="avartar">AVATAR</label>
+                  <input class="form__input" id="avartar" name="avartar" type="file"
+                     placeholder="Confirm your password">
+                  <span class="form__message"></span>
+               </div>
+               <!-- gender -->
+               <div class="form__group">
+                  <label class="form__label">GENDER</label>
+                  <ul class="form__list">
+                     <li>
+                        <label class="form__label form__label--list"> Male
+                           <input class="form__radio" name="gender" type="radio" value="male" checked>
+                           <span class="radiomark">
+                              <i class="fa-solid fa-heart"></i>
+                           </span>
+                        </label>
+                     </li>
+                     <li>
+                        <label class="form__label form__label--list"> Female
+                           <input class="form__radio" name="gender" type="radio" value="female">
+                           <span class="radiomark">
+                              <i class="fa-solid fa-heart"></i>
+                           </span>
+                        </label>
+                     </li>
+                     <li>
+                        <label class="form__label form__label--list"> Others
+                           <input class="form__radio" name="gender" type="radio" value="others">
+                           <span class="radiomark">
+                              <i class="fa-solid fa-heart"></i>
+                           </span>
+                        </label>
+                     </li>
+                  </ul>
+                  <span class="form__message"></span>
+               </div>
+               <!-- country -->
+               <div class="form__group">
+                  <label class="form__label" for="country">COUNTRY</label>
+                  <div class="form__selection">
+                     <select name="country" rules="required" id="country">
+                        <option selected disabled value="">Where are you from ?</option>
+                        <option value="vietnam">Viet Nam</option>
+                        <option value="thailand">Thailand</option>
+                        <option value="singapore">Singapore</option>
+                     </select>
+                  </div>
+                  <span class="form__message"></span>
+               </div>
+               <!-- submit button -->
+               <div class="card__form__btn">
+                  <button class="btn" type="submit">Sign Up</button>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+   <script src="./assets/js/validator.js"></script>
+   <!-- <script src="./assets/js/validator_ver2.js"></script> -->
+   <script src="./assets/js/selection.js"></script> <!-- selecttion and option html-->
+   <script>
+      Validator({
+         form: '#register-form',
+         formGroup: '.form__group',
+         errorMessage: '.form__message',
+         rules: [
+            Validator.isRequired('#name'),
+            Validator.isRequired('#email'),
+            Validator.isEmail('#email'),
+            Validator.isRequired('input[name="gender"]', 'Please choose your gender'),
+            Validator.minLength('#password', 6),
+            Validator.isRequired('#confirm-password'),
+            Validator.isRequired('#country', 'Please choose your country'),
+            Validator.isConfirmed('#confirm-password', () => {
+               return document.querySelector('#register-form #password').value;
+            }, 'Password is not match'),
+         ],
+         onSubmit: (data) => {
+            console.log(data);
+         }
+      })
+   </script>
+</body>
+
+</html>
